@@ -1,0 +1,3 @@
+[submodule "gitu"]
+	path = gitu
+	url = https://github.com/AMDphreak/git-un.git
