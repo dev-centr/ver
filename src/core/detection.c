@@ -103,7 +103,18 @@ static int execute_gitu_command(int argc, char *argv[]) {
         return -1;
     }
     
-    args[0] = "gitu";
+    /* Check if gitu submodule exists and is built */
+    if (access("./gitu/gitu", X_OK) == 0) {
+        args[0] = "./gitu/gitu";
+    } else if (access("gitu", X_OK) == 0) {
+        args[0] = "gitu";
+    } else {
+        free(args);
+        fprintf(stderr, "Error: gitu command not found. Please build the gitu submodule.\n");
+        fprintf(stderr, "Run: cd gitu && make\n");
+        return -1;
+    }
+    
     for (int i = 0; i < argc; i++) {
         args[i + 1] = argv[i];
     }
@@ -112,7 +123,7 @@ static int execute_gitu_command(int argc, char *argv[]) {
     /* Execute gitu command */
     pid_t pid = fork();
     if (pid == 0) {
-        execvp("gitu", args);
+        execvp(args[0], args);
         exit(1);
     } else if (pid > 0) {
         int status;

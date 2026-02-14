@@ -18,7 +18,8 @@ CORE_SOURCES = $(SRC_DIR)/core/main.c \
 
 HANDLER_SOURCES = $(SRC_DIR)/handlers/gitu-handler.c \
                   $(SRC_DIR)/handlers/git-handler.c \
-                  $(SRC_DIR)/handlers/local-handler.c
+                  $(SRC_DIR)/handlers/local-handler.c \
+                  $(SRC_DIR)/handlers/handler.c
 
 TUI_SOURCES = $(SRC_DIR)/tui/interface.c \
               $(SRC_DIR)/tui/selection.c
@@ -60,6 +61,7 @@ $(BUILD_DIR)/core/detection.o: $(SRC_DIR)/core/detection.c $(SRC_DIR)/core/detec
 $(BUILD_DIR)/handlers/gitu-handler.o: $(SRC_DIR)/handlers/gitu-handler.c $(SRC_DIR)/handlers/handler.h
 $(BUILD_DIR)/handlers/git-handler.o: $(SRC_DIR)/handlers/git-handler.c $(SRC_DIR)/handlers/handler.h
 $(BUILD_DIR)/handlers/local-handler.o: $(SRC_DIR)/handlers/local-handler.c $(SRC_DIR)/handlers/handler.h
+$(BUILD_DIR)/handlers/handler.o: $(SRC_DIR)/handlers/handler.c $(SRC_DIR)/handlers/handler.h
 
 $(BUILD_DIR)/tui/interface.o: $(SRC_DIR)/tui/interface.c $(SRC_DIR)/tui/interface.h
 $(BUILD_DIR)/tui/selection.o: $(SRC_DIR)/tui/selection.c $(SRC_DIR)/tui/selection.h
