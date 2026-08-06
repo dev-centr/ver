@@ -1,8 +1,38 @@
-# Ver - Universal Version Control Interface
+<a id="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![License][license-shield]][license-url]
+
+<div align="center">
+  <h1>Ver</h1>
+  <p>Universal Version Control Interface — pluggable system for Git, SVN, and other VCS providers with intuitive syntax.</p>
+  <p>
+    <a href="https://github.com/AMDphreak/ver/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/AMDphreak/ver/issues">Request Feature</a>
+  </p>
+</div>
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+## About The Project
 
 Ver is a pluggable version control interface that provides a unified, intuitive command-line experience across different version control systems. It aims to eliminate the cognitive overhead of learning multiple VCS commands by providing a consistent mental model and syntax.
 
-## Features
+### Features
 
 - **Provider Agnostic**: Works with Git, SVN, Mercurial, and custom providers
 - **Intuitive Syntax**: Commands like `ver save`, `ver history`, `ver sync`
@@ -11,9 +41,9 @@ Ver is a pluggable version control interface that provides a unified, intuitive 
 - **Safety Rails**: Prevents common mistakes with built-in safeguards
 - **Cross-Shell Support**: Works in CMD, PowerShell, and Unix shells
 
-## Quick Start
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -27,7 +57,11 @@ make
 make install
 ```
 
-### Basic Usage
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Usage
+
+### Basic commands
 
 ```bash
 # Initialize a new project (defaults to gitu provider)
@@ -46,21 +80,21 @@ ver sync
 ver status
 ```
 
-## Architecture
+### Architecture
 
 Ver uses a handler-based architecture where:
 
 1. **CLI Dispatcher** (`ver`) - Parses commands and detects providers
-2. **Abstraction Layer** - Maps intuitive commands to provider-specific actions  
+2. **Abstraction Layer** - Maps intuitive commands to provider-specific actions
 3. **Provider Handlers** - Execute the actual VCS commands
 
-### Included Handlers
+#### Included Handlers
 
 - **gitu-handler** - Uses the improved gitu interface (Git Unfuckified)
 - **git-handler** - Standard Git compatibility
 - **local-handler** - Local file snapshots without remote
 
-## Command Mapping
+### Command Mapping
 
 | Ver Command | Git Equivalent | SVN Equivalent | Description |
 |-------------|---------------|---------------|-------------|
@@ -72,18 +106,18 @@ Ver uses a handler-based architecture where:
 | `ver branch` | `git branch` | `svn copy` | Manage branches |
 | `ver merge` | `git merge` | `svn merge` | Merge changes |
 
-## Provider Detection
+### Provider Detection
 
 Ver automatically detects the version control provider by looking for:
 
 - `.git/` directory → gitu-handler (preferred) or git-handler
 - `.svn/` directory → svn-handler
-- `.hg/` directory → hg-handler  
+- `.hg/` directory → hg-handler
 - `.ver/` directory → local-handler
 
-## Development
+### Development
 
-### Project Structure
+#### Project Structure
 
 ```
 ver/
@@ -96,7 +130,7 @@ ver/
 └── docs/             # Documentation
 ```
 
-### Adding New Handlers
+#### Adding New Handlers
 
 1. Create a handler in `src/handlers/`
 2. Implement the required interface functions
@@ -105,9 +139,9 @@ ver/
 
 See `docs/handler-development.md` for details.
 
-## Shell Integration
+### Shell Integration
 
-### PowerShell
+#### PowerShell
 
 Add to your `$PROFILE`:
 
@@ -115,7 +149,7 @@ Add to your `$PROFILE`:
 function ver { & ver.exe $args }
 ```
 
-### CMD
+#### CMD
 
 Create a doskey macro:
 
@@ -123,7 +157,7 @@ Create a doskey macro:
 doskey ver=ver.exe $*
 ```
 
-### Unix Shells
+#### Unix Shells
 
 Add to your `.bashrc` or `.zshrc`:
 
@@ -131,7 +165,7 @@ Add to your `.bashrc` or `.zshrc`:
 alias ver='ver.exe'
 ```
 
-## Configuration
+### Configuration
 
 Ver stores configuration in:
 
@@ -149,7 +183,7 @@ Example configuration:
       "priority": 1
     },
     "git": {
-      "path": "./plugins/git-handler", 
+      "path": "./plugins/git-handler",
       "priority": 2
     }
   },
@@ -160,6 +194,8 @@ Example configuration:
 }
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Contributing
 
 1. Fork the repository
@@ -168,12 +204,32 @@ Example configuration:
 4. Add tests
 5. Submit a pull request
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
-## Acknowledgments
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- Based on the gitu project (Git Unfuckified)
-- Inspired by the need for better VCS UX
-- Built with the community's feedback
+## Contact
+
+Ryan Johnson — [@amdphreak](https://twitter.com/amdphreak)
+
+Project Link: [https://github.com/AMDphreak/ver](https://github.com/AMDphreak/ver)
+
+Site: [https://ryanjohnson.dev](https://ryanjohnson.dev)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[contributors-shield]: https://img.shields.io/github/contributors/AMDphreak/ver.svg?style=for-the-badge
+[contributors-url]: https://github.com/AMDphreak/ver/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/AMDphreak/ver.svg?style=for-the-badge
+[forks-url]: https://github.com/AMDphreak/ver/network/members
+[stars-shield]: https://img.shields.io/github/stars/AMDphreak/ver.svg?style=for-the-badge
+[stars-url]: https://github.com/AMDphreak/ver/stargazers
+[issues-shield]: https://img.shields.io/github/issues/AMDphreak/ver.svg?style=for-the-badge
+[issues-url]: https://github.com/AMDphreak/ver/issues
+[license-shield]: https://img.shields.io/github/license/AMDphreak/ver.svg?style=for-the-badge
+[license-url]: https://github.com/AMDphreak/ver/blob/main/LICENSE
