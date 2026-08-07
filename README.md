@@ -1,17 +1,16 @@
 <a id="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![License][license-shield]][license-url]
-
 <div align="center">
+  <a href="https://github.com/AMDphreak/ver/graphs/contributors"><img src="https://img.shields.io/github/contributors/AMDphreak/ver.svg?style=for-the-badge" alt="Contributors"></a>
+  <a href="https://github.com/AMDphreak/ver/network/members"><img src="https://img.shields.io/github/forks/AMDphreak/ver.svg?style=for-the-badge" alt="Forks"></a>
+  <a href="https://github.com/AMDphreak/ver/stargazers"><img src="https://img.shields.io/github/stars/AMDphreak/ver.svg?style=for-the-badge" alt="Stargazers"></a>
+  <a href="https://github.com/AMDphreak/ver/issues"><img src="https://img.shields.io/github/issues/AMDphreak/ver.svg?style=for-the-badge" alt="Issues"></a>
+  <a href="https://github.com/AMDphreak/ver/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AMDphreak/ver.svg?style=for-the-badge" alt="License"></a>
+
   <h1>Ver</h1>
   <p>Universal Version Control Interface — pluggable system for Git, SVN, and other VCS providers with intuitive syntax.</p>
   <p>
     <a href="https://github.com/AMDphreak/ver/issues">Report Bug</a>
-    ·
+    &middot;
     <a href="https://github.com/AMDphreak/ver/issues">Request Feature</a>
   </p>
 </div>
@@ -19,7 +18,12 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -40,6 +44,14 @@ Ver is a pluggable version control interface that provides a unified, intuitive 
 - **Auto-Detection**: Automatically detects the VCS provider for your project
 - **Safety Rails**: Prevents common mistakes with built-in safeguards
 - **Cross-Shell Support**: Works in CMD, PowerShell, and Unix shells
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+* **CLI / core** — C (Make-based build), handler plugins under `src/handlers/`
+* **Providers** — Git (gitu-handler preferred), SVN, Mercurial, local snapshots
+* **Shells** — CMD, PowerShell, bash/zsh
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,7 +109,7 @@ Ver uses a handler-based architecture where:
 ### Command Mapping
 
 | Ver Command | Git Equivalent | SVN Equivalent | Description |
-|-------------|---------------|---------------|-------------|
+|-------------|----------------|----------------|-------------|
 | `ver init` | `git init` | `svn init` | Initialize repository |
 | `ver save` | `git commit` | `svn commit` | Save changes |
 | `ver stage` | `git add` | `svn add` | Stage files |
@@ -124,10 +136,10 @@ ver/
 ├── src/
 │   ├── core/           # CLI dispatcher logic
 │   ├── handlers/       # Provider handlers
-│   └── tui/           # Terminal UI components
-├── plugins/           # External handler plugins
-├── tests/            # Test suites
-└── docs/             # Documentation
+│   └── tui/            # Terminal UI components
+├── plugins/            # External handler plugins
+├── tests/              # Test suites
+└── docs/               # Documentation
 ```
 
 #### Adding New Handlers
@@ -204,6 +216,14 @@ Example configuration:
 4. Add tests
 5. Submit a pull request
 
+### Top contributors
+
+<a href="https://github.com/AMDphreak/ver/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AMDphreak/ver" alt="contributors" />
+</a>
+
+For per-person profile links, prefer [all-contributors](https://allcontributors.org/).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
@@ -221,15 +241,3 @@ Project Link: [https://github.com/AMDphreak/ver](https://github.com/AMDphreak/ve
 Site: [https://ryanjohnson.dev](https://ryanjohnson.dev)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/AMDphreak/ver.svg?style=for-the-badge
-[contributors-url]: https://github.com/AMDphreak/ver/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/AMDphreak/ver.svg?style=for-the-badge
-[forks-url]: https://github.com/AMDphreak/ver/network/members
-[stars-shield]: https://img.shields.io/github/stars/AMDphreak/ver.svg?style=for-the-badge
-[stars-url]: https://github.com/AMDphreak/ver/stargazers
-[issues-shield]: https://img.shields.io/github/issues/AMDphreak/ver.svg?style=for-the-badge
-[issues-url]: https://github.com/AMDphreak/ver/issues
-[license-shield]: https://img.shields.io/github/license/AMDphreak/ver.svg?style=for-the-badge
-[license-url]: https://github.com/AMDphreak/ver/blob/main/LICENSE
