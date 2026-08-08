@@ -1,9 +1,9 @@
 {
 	"name": "ver",
-	"description": "Universal version-control interface — library, CLI, and Qt GUI with a consistent command model.",
+	"description": "Universal version-control interface - library, CLI, and Qt GUI with a consistent command model.",
 	"authors": ["Dev-Centr"],
 	"license": "BSL-1.0",
-	"copyright": "Copyright © 2024–2026, Dev-Centr",
+	"copyright": "Copyright (c) 2024-2026, Dev-Centr",
 	"homepage": "https://github.com/dev-centr/ver",
 	"documentationURL": "https://docs.devcentr.org/ver/",
 	"sourcePaths": ["source"],
