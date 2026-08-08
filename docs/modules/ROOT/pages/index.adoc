@@ -1,0 +1,19 @@
+= Ver
+:description: Universal version-control interface — one command model across Git, SVN, and Mercurial.
+
+Ver is a developer tool that maps a small, consistent command vocabulary (`status`, `save`, `sync`, …) onto the nearest VCS root.
+
+== Surfaces
+
+* *Library* (`ver`) — embed detection and dispatch in other D tools
+* *CLI* (`ver`) — day-to-day shell use
+* *GUI* (`ver-gui`) — Qt front-end over the same library
+
+Repository::
+https://github.com/dev-centr/ver
+
+Docs hub::
+https://docs.devcentr.org/ver/
+
+Package index::
+https://code.dlang.org/packages/ver (DUB; register after the first tagged release)

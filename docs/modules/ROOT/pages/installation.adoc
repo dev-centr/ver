@@ -1,0 +1,38 @@
+= Installation
+
+== From source (DUB)
+
+[source,bash]
+----
+git clone https://github.com/dev-centr/ver.git
+cd ver
+dub build --config=cli --build=release
+dub build --config=library --build=release
+# Optional Qt GUI (needs Qt 6 + dqt):
+dub build --config=gui --build=release
+----
+
+== As a DUB dependency
+
+[source,json]
+----
+"dependencies": {
+  "ver": "~>0.2.0"
+}
+----
+
+Until the package is on https://code.dlang.org[code.dlang.org], depend on git:
+
+[source,json]
+----
+"dependencies": {
+  "ver": {
+    "repository": "git+https://github.com/dev-centr/ver.git",
+    "version": "~main"
+  }
+}
+----
+
+== Releases
+
+GitHub Releases attach CLI binaries and static libraries for Linux/Windows/macOS (x86_64 and arm64 where runners exist), plus a Linux `ver-gui` build.

@@ -1,0 +1,19 @@
+= Usage
+
+[source,bash]
+----
+ver status
+ver save "explain the change"
+ver sync
+ver history
+ver help
+----
+
+`ver` walks upward from the current directory to find `.git`, `.svn`, or `.hg`, then maps the command onto that tool.
+
+GUI:
+
+[source,bash]
+----
+ver-gui
+----

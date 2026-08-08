@@ -1,0 +1,16 @@
+= Library API
+
+[source,d]
+----
+import ver;
+
+auto kind = detectVcs(".");
+auto result = dispatch("status", null, ".");
+----
+
+Key entry points:
+
+* `detectVcs` / `findVcsRoot` — discovery
+* `dispatch` — command mapping
+* `CommandResult` — exit code + captured output
+* `verVersion` — library/CLI version string
