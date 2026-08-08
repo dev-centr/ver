@@ -1,0 +1,104 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.asset }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset: ver-linux-x86_64
+            lib: libver-linux-x86_64.a
+            lib_glob: '*.a'
+          - os: ubuntu-24.04-arm
+            asset: ver-linux-arm64
+            lib: libver-linux-arm64.a
+            lib_glob: '*.a'
+          - os: windows-latest
+            asset: ver-windows-x86_64.exe
+            lib: ver-windows-x86_64.lib
+            lib_glob: '*.lib'
+          - os: macos-latest
+            asset: ver-macos-arm64
+            lib: libver-macos-arm64.a
+            lib_glob: '*.a'
+          - os: macos-13
+            asset: ver-macos-x86_64
+            lib: libver-macos-x86_64.a
+            lib_glob: '*.a'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install D
+        uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-latest
+      - name: Build CLI
+        run: dub build --config=cli --build=release
+      - name: Build library
+        run: dub build --config=library --build=release
+      - name: Stage artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            mv ver.exe "${{ matrix.asset }}"
+          else
+            mv ver "${{ matrix.asset }}"
+          fi
+          libs=( ${{ matrix.lib_glob }} )
+          cp "${libs[0]}" "${{ matrix.lib }}"
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: |
+            ${{ matrix.asset }}
+            ${{ matrix.lib }}
+
+  gui-linux:
+    name: Build ver-gui-linux-x86_64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-base-dev
+      - name: Install D
+        uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-latest
+      - name: Build GUI
+        run: dub build --config=gui --build=release
+      - name: Stage
+        run: mv ver-gui ver-gui-linux-x86_64
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ver-gui-linux-x86_64
+          path: ver-gui-linux-x86_64
+
+  release:
+    needs: [build, gui-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

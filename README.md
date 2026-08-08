@@ -1,243 +1,73 @@
 <a id="readme-top"></a>
 <div align="center">
-  <a href="https://github.com/AMDphreak/ver/graphs/contributors"><img src="https://img.shields.io/github/contributors/AMDphreak/ver.svg?style=for-the-badge" alt="Contributors"></a>
-  <a href="https://github.com/AMDphreak/ver/network/members"><img src="https://img.shields.io/github/forks/AMDphreak/ver.svg?style=for-the-badge" alt="Forks"></a>
-  <a href="https://github.com/AMDphreak/ver/stargazers"><img src="https://img.shields.io/github/stars/AMDphreak/ver.svg?style=for-the-badge" alt="Stargazers"></a>
-  <a href="https://github.com/AMDphreak/ver/issues"><img src="https://img.shields.io/github/issues/AMDphreak/ver.svg?style=for-the-badge" alt="Issues"></a>
-  <a href="https://github.com/AMDphreak/ver/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AMDphreak/ver.svg?style=for-the-badge" alt="License"></a>
+  <a href="https://github.com/dev-centr/ver/graphs/contributors"><img src="https://img.shields.io/github/contributors/dev-centr/ver.svg?style=for-the-badge" alt="Contributors"></a>
+  <a href="https://github.com/dev-centr/ver/network/members"><img src="https://img.shields.io/github/forks/dev-centr/ver.svg?style=for-the-badge" alt="Forks"></a>
+  <a href="https://github.com/dev-centr/ver/stargazers"><img src="https://img.shields.io/github/stars/dev-centr/ver.svg?style=for-the-badge" alt="Stargazers"></a>
+  <a href="https://github.com/dev-centr/ver/issues"><img src="https://img.shields.io/github/issues/dev-centr/ver.svg?style=for-the-badge" alt="Issues"></a>
+  <a href="https://github.com/dev-centr/ver/blob/main/LICENSE"><img src="https://img.shields.io/github/license/dev-centr/ver.svg?style=for-the-badge" alt="License"></a>
 
   <h1>Ver</h1>
-  <p>Universal Version Control Interface — pluggable system for Git, SVN, and other VCS providers with intuitive syntax.</p>
+  <p>Universal Version Control Interface — library, CLI, and Qt GUI with one command model across Git, SVN, and Mercurial.</p>
   <p>
-    <a href="https://github.com/AMDphreak/ver/issues">Report Bug</a>
+    <a href="https://docs.devcentr.org/ver/"><strong>Explore the docs</strong></a>
     &middot;
-    <a href="https://github.com/AMDphreak/ver/issues">Request Feature</a>
+    <a href="https://github.com/dev-centr/ver/issues">Report Bug</a>
+    &middot;
+    <a href="https://github.com/dev-centr/ver/issues">Request Feature</a>
   </p>
 </div>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
-
 ## About The Project
 
-Ver is a pluggable version control interface that provides a unified, intuitive command-line experience across different version control systems. It aims to eliminate the cognitive overhead of learning multiple VCS commands by providing a consistent mental model and syntax.
+Ver maps a small, consistent vocabulary (`status`, `save`, `sync`, …) onto the nearest VCS root. Use it as a **CLI**, embed the **D library**, or open the **Qt GUI**.
 
-### Features
-
-- **Provider Agnostic**: Works with Git, SVN, Mercurial, and custom providers
-- **Intuitive Syntax**: Commands like `ver save`, `ver history`, `ver sync`
-- **Handler-Based Architecture**: Pluggable system for adding new VCS providers
-- **Auto-Detection**: Automatically detects the VCS provider for your project
-- **Safety Rails**: Prevents common mistakes with built-in safeguards
-- **Cross-Shell Support**: Works in CMD, PowerShell, and Unix shells
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Legacy C sources under `src/` remain for reference; the supported build is DUB (`source/`).
 
 ### Built With
 
-* **CLI / core** — C (Make-based build), handler plugins under `src/handlers/`
-* **Providers** — Git (gitu-handler preferred), SVN, Mercurial, local snapshots
-* **Shells** — CMD, PowerShell, bash/zsh
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+* **D** — library + CLI + GUI
+* **DUB** — package / build
+* **Qt 6 + dqt** — optional GUI (`dlang-supplemental/dqt`)
 
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/AMDphreak/ver.git
-cd ver
-
-# Build the project
-make
-
-# Install system-wide
-make install
+dub build --config=cli --build=release
+dub build --config=library --build=release
+# optional:
+dub build --config=gui --build=release
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Usage
-
-### Basic commands
-
-```bash
-# Initialize a new project (defaults to gitu provider)
-ver init
-
-# Save changes
-ver save "Fixed login bug"
-
-# View history
-ver history
-
-# Sync with remote
-ver sync
-
-# Check status
-ver status
-```
-
-### Architecture
-
-Ver uses a handler-based architecture where:
-
-1. **CLI Dispatcher** (`ver`) - Parses commands and detects providers
-2. **Abstraction Layer** - Maps intuitive commands to provider-specific actions
-3. **Provider Handlers** - Execute the actual VCS commands
-
-#### Included Handlers
-
-- **gitu-handler** - Uses the improved gitu interface (Git Unfuckified)
-- **git-handler** - Standard Git compatibility
-- **local-handler** - Local file snapshots without remote
-
-### Command Mapping
-
-| Ver Command | Git Equivalent | SVN Equivalent | Description |
-|-------------|----------------|----------------|-------------|
-| `ver init` | `git init` | `svn init` | Initialize repository |
-| `ver save` | `git commit` | `svn commit` | Save changes |
-| `ver stage` | `git add` | `svn add` | Stage files |
-| `ver history` | `git log` | `svn log` | View history |
-| `ver sync` | `git pull && git push` | `svn update && svn commit` | Synchronize |
-| `ver branch` | `git branch` | `svn copy` | Manage branches |
-| `ver merge` | `git merge` | `svn merge` | Merge changes |
-
-### Provider Detection
-
-Ver automatically detects the version control provider by looking for:
-
-- `.git/` directory → gitu-handler (preferred) or git-handler
-- `.svn/` directory → svn-handler
-- `.hg/` directory → hg-handler
-- `.ver/` directory → local-handler
-
-### Development
-
-#### Project Structure
-
-```
-ver/
-├── src/
-│   ├── core/           # CLI dispatcher logic
-│   ├── handlers/       # Provider handlers
-│   └── tui/            # Terminal UI components
-├── plugins/            # External handler plugins
-├── tests/              # Test suites
-└── docs/               # Documentation
-```
-
-#### Adding New Handlers
-
-1. Create a handler in `src/handlers/`
-2. Implement the required interface functions
-3. Register the handler in the core dispatcher
-4. Add tests
-
-See `docs/handler-development.md` for details.
-
-### Shell Integration
-
-#### PowerShell
-
-Add to your `$PROFILE`:
-
-```powershell
-function ver { & ver.exe $args }
-```
-
-#### CMD
-
-Create a doskey macro:
-
-```batch
-doskey ver=ver.exe $*
-```
-
-#### Unix Shells
-
-Add to your `.bashrc` or `.zshrc`:
-
-```bash
-alias ver='ver.exe'
-```
-
-### Configuration
-
-Ver stores configuration in:
-
-- **Windows**: `%APPDATA%/ver/config.json`
-- **Unix**: `~/.config/ver/config.json`
-
-Example configuration:
+As a dependency (DUB registry after first publish, or git):
 
 ```json
-{
-  "default_provider": "gitu",
-  "handlers": {
-    "gitu": {
-      "path": "./plugins/gitu-handler",
-      "priority": 1
-    },
-    "git": {
-      "path": "./plugins/git-handler",
-      "priority": 2
-    }
-  },
-  "ui": {
-    "tui_enabled": true,
-    "ai_mode": false
+"dependencies": {
+  "ver": {
+    "repository": "git+https://github.com/dev-centr/ver.git",
+    "version": "~main"
   }
 }
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Usage
 
-## Contributing
+```bash
+ver status
+ver save "message"
+ver sync
+ver-gui
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+## Changelog
 
-### Top contributors
-
-<a href="https://github.com/AMDphreak/ver/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AMDphreak/ver" alt="contributors" />
-</a>
-
-For per-person profile links, prefer [all-contributors](https://allcontributors.org/).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+See [CHANGELOG.adoc](./CHANGELOG.adoc).
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Boost Software License 1.0 — see [LICENSE](./LICENSE).
 
 ## Contact
 
-Ryan Johnson — [@amdphreak](https://twitter.com/amdphreak)
+Dev-Centr — support@devcentr.org
 
-Project Link: [https://github.com/AMDphreak/ver](https://github.com/AMDphreak/ver)
-
-Site: [https://ryanjohnson.dev](https://ryanjohnson.dev)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Project Link: https://github.com/dev-centr/ver

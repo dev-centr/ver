@@ -1,0 +1,14 @@
+.dub/
+*.exe
+*.o
+*.obj
+*.lib
+*.a
+*.so
+*.dylib
+ver
+ver-gui
+bin/
+build/
+*.lst
+dub.selections.json

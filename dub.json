@@ -1,0 +1,45 @@
+{
+	"name": "ver",
+	"description": "Universal version-control interface — library, CLI, and Qt GUI with a consistent command model.",
+	"authors": ["Dev-Centr"],
+	"license": "BSL-1.0",
+	"copyright": "Copyright © 2024–2026, Dev-Centr",
+	"homepage": "https://github.com/dev-centr/ver",
+	"documentationURL": "https://docs.devcentr.org/ver/",
+	"sourcePaths": ["source"],
+	"importPaths": ["source"],
+	"configurations": [
+		{
+			"name": "library",
+			"targetType": "library",
+			"excludedSourceFiles": [
+				"source/app_cli.d",
+				"source/app_gui.d"
+			]
+		},
+		{
+			"name": "cli",
+			"targetType": "executable",
+			"targetName": "ver",
+			"mainSourceFile": "source/app_cli.d",
+			"excludedSourceFiles": [
+				"source/app_gui.d"
+			]
+		},
+		{
+			"name": "gui",
+			"targetType": "executable",
+			"targetName": "ver-gui",
+			"mainSourceFile": "source/app_gui.d",
+			"excludedSourceFiles": [
+				"source/app_cli.d"
+			],
+			"dependencies": {
+				"dqt:widgets": {
+					"repository": "git+https://github.com/dlang-supplemental/dqt.git",
+					"version": "~master"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,6 @@
+name: ver
+title: Ver
+version: master
+start_page: ROOT:index.adoc
+nav:
+  - modules/ROOT/nav.adoc

@@ -1,0 +1,14 @@
+= Changelog
+
+All notable changes to this project are documented in this file.
+
+== Unreleased
+
+* Relocate project to `dev-centr/ver`
+* Add D library (`ver`), CLI (`ver`), and Qt GUI (`ver-gui`) builds via DUB
+* Add multi-OS CI and tagged release artifacts (CLI + static library; Linux GUI)
+* Keep legacy C sources under `src/` for reference (Makefile still targets them)
+
+== 0.1.0
+
+* Initial C prototype (git/svn/local handlers)
