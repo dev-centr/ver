@@ -1,6 +1,17 @@
 = Installation
 
-== From source (DUB)
+== As a DUB dependency (preferred)
+
+[source,json]
+----
+"dependencies": {
+  "ver": "~>0.2.4"
+}
+----
+
+That pulls the **library** configuration from https://code.dlang.org/packages/ver[code.dlang.org].
+
+== From source
 
 [source,bash]
 ----
@@ -8,31 +19,21 @@ git clone https://github.com/dev-centr/ver.git
 cd ver
 dub build --config=cli --build=release
 dub build --config=library --build=release
-# Optional Qt GUI (needs Qt 6 + dqt):
+# Optional Qt GUI (needs Qt 6 + dqt git binding):
 dub build --config=gui --build=release
 ----
 
-== As a DUB dependency
+== Dependencies: Dub vs git vs binaries
 
-[source,json]
-----
-"dependencies": {
-  "ver": "~>0.2.0"
-}
-----
+| What | How to consume |
+| ---- | -------------- |
+| `ver` library/CLI recipe | DUB registry (`"ver": "~>0.2.4"`) |
+| `dqt` (D bindings) | Git dependency on a commit/branch (temporary fork until upstream merges `QSystemTrayIcon`) |
+| Qt 6 itself | System package / aqtinstall / official installer — **not** a DUB package |
+| Prebuilt `ver` / `ver-gui` apps | GitHub Releases (one asset per OS/arch). Use for end users; D projects should depend on the library via DUB, not link those release binaries |
 
-Until the package is on https://code.dlang.org[code.dlang.org], depend on git:
-
-[source,json]
-----
-"dependencies": {
-  "ver": {
-    "repository": "git+https://github.com/dev-centr/ver.git",
-    "version": "~main"
-  }
-}
-----
+There is no “Linux GUI job ships `.o` files to Windows for linking.” Each CI job installs Qt on that runner and builds natively.
 
 == Releases
 
-GitHub Releases attach CLI binaries and static libraries for Linux/Windows/macOS (x86_64 and arm64 where runners exist), plus a Linux `ver-gui` build.
+GitHub Releases attach CLI + static library + GUI binaries for Linux/Windows/macOS (x86_64 and arm64 where runners exist).

@@ -27,6 +27,10 @@ jobs:
             asset: ver-windows-x86_64.exe
             lib: ver-windows-x86_64.lib
             lib_glob: '*.lib'
+          - os: windows-11-arm
+            asset: ver-windows-arm64.exe
+            lib: ver-windows-arm64.lib
+            lib_glob: '*.lib'
           - os: macos-latest
             asset: ver-macos-arm64
             lib: libver-macos-arm64.a
@@ -65,31 +69,68 @@ jobs:
             ${{ matrix.asset }}
             ${{ matrix.lib }}
 
-  gui-linux:
-    name: Build ver-gui-linux-x86_64
-    runs-on: ubuntu-latest
+  gui:
+    name: Build ${{ matrix.asset }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset: ver-gui-linux-x86_64
+          - os: ubuntu-24.04-arm
+            asset: ver-gui-linux-arm64
+          - os: windows-latest
+            asset: ver-gui-windows-x86_64.exe
+          - os: macos-latest
+            asset: ver-gui-macos-arm64
     steps:
       - uses: actions/checkout@v4
-      - name: Install Qt
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qt6-base-dev
       - name: Install D
         uses: dlang-community/setup-dlang@v1
         with:
           compiler: ldc-latest
+      - name: Install Qt (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-base-dev
+      - name: Install Qt (macOS)
+        if: runner.os == 'macOS'
+        run: brew install qt
+      - name: Install Qt (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m pip install aqtinstall
+          python -m aqt install-qt windows desktop 6.7.3 win64_msvc2019_64 -O "$env:RUNNER_TEMP\Qt"
+          $qt = Get-ChildItem "$env:RUNNER_TEMP\Qt\6.7.3" -Directory | Select-Object -First 1
+          "QT_ROOT=$($qt.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "DFLAGS=-L/LIBPATH:$($qt.FullName)\lib" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "PATH=$($qt.FullName)\bin;$env:PATH" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Qt paths (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          echo "PATH=$(brew --prefix qt)/bin:$PATH" >> "$GITHUB_ENV"
+          echo "LIBRARY_PATH=$(brew --prefix qt)/lib:${LIBRARY_PATH:-}" >> "$GITHUB_ENV"
       - name: Build GUI
         run: dub build --config=gui --build=release
       - name: Stage
-        run: mv ver-gui ver-gui-linux-x86_64
+        shell: bash
+        run: |
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            mv ver-gui.exe "${{ matrix.asset }}"
+          else
+            mv ver-gui "${{ matrix.asset }}"
+          fi
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: ver-gui-linux-x86_64
-          path: ver-gui-linux-x86_64
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
 
   release:
-    needs: [build, gui-linux]
+    needs: [build, gui]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts

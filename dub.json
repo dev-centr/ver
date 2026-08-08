@@ -37,7 +37,7 @@
 			"dependencies": {
 				"dqt:widgets": {
 					"repository": "git+https://github.com/dlang-supplemental/dqt.git",
-					"version": "~master"
+					"version": "297b81b2cb7e0e40dc0c7192252c4f150f735865"
 				}
 			}
 		}
