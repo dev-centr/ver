@@ -38,16 +38,15 @@ dub build --config=library --build=release
 dub build --config=gui --build=release
 ```
 
-As a dependency (DUB registry after first publish, or git):
+As a dependency:
 
 ```json
 "dependencies": {
-  "ver": {
-    "repository": "git+https://github.com/dev-centr/ver.git",
-    "version": "~main"
-  }
+  "ver": "~>0.2.4"
 }
 ```
+
+(`dqt` for the optional GUI is a **git** dependency on `dlang-supplemental/dqt`, not Dub. Qt itself is a system/aqt install.)
 
 ## Usage
 
