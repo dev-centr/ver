@@ -6,8 +6,10 @@
 *.a
 *.so
 *.dylib
-ver
-ver-gui
+/ver
+/ver.exe
+/ver-gui
+/ver-gui.exe
 bin/
 build/
 *.lst
