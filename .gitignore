@@ -14,3 +14,5 @@ bin/
 build/
 *.lst
 dub.selections.json
+
+*.pdb
