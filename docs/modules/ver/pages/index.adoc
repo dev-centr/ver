@@ -13,7 +13,7 @@ Repository::
 https://github.com/dev-centr/ver
 
 Docs hub::
-https://docs.devcentr.org/ver/
+https://docs.devcentr.org/tools/ver/
 
 Package index::
 https://code.dlang.org/packages/ver (DUB; register after the first tagged release)
