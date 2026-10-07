@@ -68,6 +68,7 @@ jobs:
           path: |
             ${{ matrix.asset }}
             ${{ matrix.lib }}
+          retention-days: 1
 
   gui:
     name: Build ${{ matrix.asset }}
@@ -128,6 +129,7 @@ jobs:
         with:
           name: ${{ matrix.asset }}
           path: ${{ matrix.asset }}
+          retention-days: 1
 
   release:
     needs: [build, gui]
